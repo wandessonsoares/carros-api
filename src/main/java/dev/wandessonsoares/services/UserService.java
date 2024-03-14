@@ -1,7 +1,9 @@
 package dev.wandessonsoares.services;
 
+import dev.wandessonsoares.domain.Car;
 import dev.wandessonsoares.domain.User;
 import dev.wandessonsoares.dto.UserDTO;
+import dev.wandessonsoares.repository.CarRepository;
 import dev.wandessonsoares.repository.UserRepository;
 import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    CarService carService;
+    @Autowired
     ConvertUserDTO convertUserDTO;
 
     public List<UserDTO> findAllUsers(){
@@ -28,11 +32,19 @@ public class UserService {
         return userDTOS;
     }
 
-    public Optional<UserDTO> findUserById(Long id){
+    public Optional<UserDTO> findUserDTOById(Long id){
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
             UserDTO userDTO = convertUserDTO.convert(user.get());
             return Optional.ofNullable(userDTO);
+        }
+        return null;
+    }
+
+    public Optional<User> findUserById(Long id){
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()){
+            return Optional.of(user.get());
         }
         return null;
     }

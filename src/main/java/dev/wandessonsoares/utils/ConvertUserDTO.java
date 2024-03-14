@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class ConvertUserDTO {
 
     @Autowired
-    ConverCarDTO converCarDTO;
+    ConvertCarDTO convertCarDTO;
 
     public UserDTO convert (User user){
         UserDTO userDTO = new UserDTO();
@@ -24,7 +24,7 @@ public class ConvertUserDTO {
 
         ArrayList<CarDTO> carsDTO = new ArrayList<>();
         user.getCars().forEach(car -> {
-            carsDTO.add(converCarDTO.convert(car));
+            carsDTO.add(convertCarDTO.convert(car));
         });
 
         userDTO.setCars(carsDTO);

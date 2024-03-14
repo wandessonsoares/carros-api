@@ -5,7 +5,7 @@ import dev.wandessonsoares.dto.CarDTO;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ConverCarDTO {
+public class ConvertCarDTO {
 
     public CarDTO convert (Car car){
         CarDTO carDTO = new CarDTO();

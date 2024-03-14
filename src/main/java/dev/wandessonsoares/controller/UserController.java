@@ -2,6 +2,7 @@ package dev.wandessonsoares.controller;
 
 import dev.wandessonsoares.domain.User;
 import dev.wandessonsoares.dto.UserDTO;
+import dev.wandessonsoares.services.CarService;
 import dev.wandessonsoares.services.UserService;
 import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,6 +19,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    CarService carService;
     @Autowired
     ConvertUserDTO convertUserDTO;
 
@@ -27,7 +31,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
-        return userService.findUserById(id)
+        return userService.findUserDTOById(id)
                 .map(record -> {
                     return ResponseEntity.status(HttpStatus.OK).body(record);
                 }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -36,6 +40,9 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<UserDTO> saveUser(@RequestBody User user){
         userService.saveNewUser(user);
+        user.getCars().forEach(car -> {
+            carService.updateCar(car, car.getId(), user);
+        });
         UserDTO userDTO = convertUserDTO.convert(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
     }
@@ -45,6 +52,15 @@ public class UserController {
         return userService.findUserById(id)
                 .map(record -> {
                     userService.deleteUserById(id);
+                    return ResponseEntity.status(HttpStatus.OK).build();
+                }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody User updateUser){
+        return userService.findUserById(id)
+                .map(record -> {
+                    userService.updateUser(updateUser, record.getId());
                     return ResponseEntity.status(HttpStatus.OK).build();
                 }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

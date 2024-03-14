@@ -7,9 +7,7 @@ Criar aplicação que exponha uma API RESTful de criação de usuários e carros
 * **EST-01** - Criar e mapear entidades Usuário e Carro
 * **EST-02** - Criar rotas para a entidade Usuário
 * **EST-03** - Criar rotas para a entidade Carro
-* **EST-04** - Configurar autentição e geração de token com JWT
-* **EST-05** - Implmentar rota para SignIn
-* **EST-06** - Configurar rotas que exigem autenticação
-* **EST-07** - Implementar validações
-* **EST-08** - Criar testes unitários
-* **EST-09** - Fazer deploy da API no Render
+* **EST-04** - Configurar autenticação e geração de token com JWT
+* **EST-05** - Implementar validações
+* **EST-06** - Criar testes unitários
+* **EST-07** - Fazer deploy da API no Render

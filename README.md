@@ -11,3 +11,4 @@ Criar aplicação que exponha uma API RESTful de criação de usuários e carros
 * **EST-05** - Implementar validações
 * **EST-06** - Criar testes unitários
 * **EST-07** - Fazer deploy da API no Render
+* **EST-08** - Adicionar Swagger

@@ -1,45 +1,39 @@
-package dev.wandessonsoares.domain.car;
+package dev.wandessonsoares.domain.user;
 
 import java.util.Collection;
 import java.util.List;
 
-import dev.wandessonsoares.domain.user.Car;
+import dev.wandessonsoares.domain.car.Car;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity(name="USUARIO")
 @Table(name="USUARIO")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Getter @Setter
     private long id;
-    @Getter @Setter
     private String firstName;
-    @Getter @Setter
     private String lastName;
-    @Getter @Setter
     private String email;
-    @Getter @Setter
     private String birthDay;
-    @Getter @Setter
     private String login;
-    @Getter @Setter
     private String password;
-    @Getter @Setter
     private String phone;
-    @Getter @Setter
     @OneToMany(mappedBy="user", targetEntity= Car.class, fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Car> cars;
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

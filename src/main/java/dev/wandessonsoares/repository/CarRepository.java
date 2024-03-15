@@ -1,7 +1,6 @@
 package dev.wandessonsoares.repository;
 
-import dev.wandessonsoares.domain.Car;
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.car.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

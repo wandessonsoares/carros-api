@@ -1,6 +1,6 @@
 package dev.wandessonsoares.utils;
 
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.user.User;
 import dev.wandessonsoares.dto.CarDTO;
 import dev.wandessonsoares.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;

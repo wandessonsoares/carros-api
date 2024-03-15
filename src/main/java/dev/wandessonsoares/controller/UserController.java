@@ -1,6 +1,7 @@
 package dev.wandessonsoares.controller;
 
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.user.User;
+import dev.wandessonsoares.domain.user.UserRole;
 import dev.wandessonsoares.dto.UserDTO;
 import dev.wandessonsoares.services.CarService;
 import dev.wandessonsoares.services.UserService;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -38,13 +38,17 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<UserDTO> saveUser(@RequestBody User user){
-        userService.saveNewUser(user);
-        user.getCars().forEach(car -> {
-            carService.updateCar(car, car.getId(), user);
-        });
-        UserDTO userDTO = convertUserDTO.convert(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+    public ResponseEntity<?> saveUser(@RequestBody User user){
+        if (userService.findUserByLogin(user.getLogin()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login ja cadastrado.");
+        } else {
+            userService.saveNewUser(user);
+            user.getCars().forEach(car -> {
+                carService.updateCar(car, car.getId(), user);
+            });
+            UserDTO userDTO = convertUserDTO.convert(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+        }
     }
 
     @DeleteMapping("/{id}")

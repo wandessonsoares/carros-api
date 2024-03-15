@@ -1,13 +1,10 @@
 package dev.wandessonsoares.services;
 
-import dev.wandessonsoares.domain.Car;
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.car.Car;
+import dev.wandessonsoares.domain.user.User;
 import dev.wandessonsoares.dto.CarDTO;
-import dev.wandessonsoares.dto.UserDTO;
 import dev.wandessonsoares.repository.CarRepository;
-import dev.wandessonsoares.repository.UserRepository;
 import dev.wandessonsoares.utils.ConvertCarDTO;
-import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +69,7 @@ public class CarService {
         Optional<Car> carSaved = carRepository.findById(id);
         if (carSaved.isPresent()){
             Car car = carSaved.get();
-            car.setAno(updateCar.getAno());
+            car.setCarYear(updateCar.getCarYear());
             car.setLicensePlate(updateCar.getLicensePlate());
             car.setModel(updateCar.getModel());
             car.setColor(updateCar.getColor());

@@ -1,12 +1,14 @@
 package dev.wandessonsoares.services;
 
-import dev.wandessonsoares.domain.Car;
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.user.User;
+import dev.wandessonsoares.domain.user.UserRole;
 import dev.wandessonsoares.dto.UserDTO;
-import dev.wandessonsoares.repository.CarRepository;
 import dev.wandessonsoares.repository.UserRepository;
 import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,7 +51,15 @@ public class UserService {
         return null;
     }
 
+    public UserDetails findUserByLogin(String login){
+        UserDetails user = userRepository.findByLogin(login);
+        return user;
+    }
+
     public User saveNewUser(User user){
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        user.setRole(UserRole.USER);
         return userRepository.save(user);
     }
 

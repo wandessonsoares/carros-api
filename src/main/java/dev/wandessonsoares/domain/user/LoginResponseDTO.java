@@ -1,2 +1,4 @@
-package dev.wandessonsoares.domain.user;public record LoginResponseDTO() {
+package dev.wandessonsoares.domain.user;
+
+public record LoginResponseDTO(String token) {
 }

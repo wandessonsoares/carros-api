@@ -1,19 +1,16 @@
 package dev.wandessonsoares.controller;
 
-import dev.wandessonsoares.domain.Car;
-import dev.wandessonsoares.domain.User;
+import dev.wandessonsoares.domain.car.Car;
+import dev.wandessonsoares.domain.user.User;
 import dev.wandessonsoares.dto.CarDTO;
-import dev.wandessonsoares.dto.UserDTO;
 import dev.wandessonsoares.services.CarService;
 import dev.wandessonsoares.services.UserService;
 import dev.wandessonsoares.utils.ConvertCarDTO;
-import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

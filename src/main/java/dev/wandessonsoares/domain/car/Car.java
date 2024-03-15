@@ -1,7 +1,8 @@
-package dev.wandessonsoares.domain;
+package dev.wandessonsoares.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import dev.wandessonsoares.domain.car.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class Car implements Serializable{
     @Getter @Setter
     private long id;
     @Getter @Setter
-    private String ano;
+    private String carYear;
     @Getter @Setter
     private String licensePlate;
     @Getter @Setter

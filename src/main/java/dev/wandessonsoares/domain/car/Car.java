@@ -18,9 +18,13 @@ public class Car {
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Getter @Setter
     private long id;
+    @Column(nullable = false)
     private String carYear;
+    @Column(nullable = false, unique = true)
     private String licensePlate;
+    @Column(nullable = false)
     private String model;
+    @Column(nullable = false)
     private String color;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="usuario_id")

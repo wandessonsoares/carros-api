@@ -6,6 +6,9 @@ import dev.wandessonsoares.dto.CarDTO;
 import dev.wandessonsoares.services.CarService;
 import dev.wandessonsoares.services.UserService;
 import dev.wandessonsoares.utils.ConvertCarDTO;
+import dev.wandessonsoares.utils.ConvertJSONObject;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,8 @@ public class CarController {
     UserService userService;
     @Autowired
     ConvertCarDTO convertCarDTO;
+    @Autowired
+    ConvertJSONObject convertJSONObject;
 
     @GetMapping("")
     public ResponseEntity<List<?>> getCarsByUser(){
@@ -44,13 +49,24 @@ public class CarController {
     }
 
     @PostMapping("")
-    public ResponseEntity<CarDTO> saveCar(@RequestBody Car car){
-        Optional <User> user = userService.findUserById(Long.parseLong("1"));
-        if(user.isPresent()){
-            carService.saveNewCar(car, user.get());
+    public ResponseEntity<?> saveCar(@RequestBody Car car) throws JdbcSQLIntegrityConstraintViolationException {
+        try{
+            Optional <User> user = userService.findUserById(Long.parseLong("1"));
+            if(user.isPresent()){
+                carService.saveNewCar(car, user.get());
+            }
+            CarDTO carDTO = convertCarDTO.convert(car);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carDTO);
+        } catch (Exception e){
+            String msg = "";
+            if (e.getMessage().contains("LICENCE")){
+                msg = "Licence plate already exists";
+            } else if (e.getMessage().contains("not-null")) {
+                msg = "Missing fields";
+            }
+            JSONObject json = convertJSONObject.convert(HttpStatus.BAD_REQUEST.value(), msg);
+            return ResponseEntity.badRequest().body(json.toString());
         }
-        CarDTO carDTO = convertCarDTO.convert(car);
-        return ResponseEntity.status(HttpStatus.CREATED).body(carDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -65,11 +81,22 @@ public class CarController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCarById(@PathVariable Long id, @RequestBody Car updateCar){
-        Optional <User> user = userService.findUserById(Long.parseLong("1"));
-        return carService.findCarById(id, user.get().getId())
-                .map(record -> {
-                    carService.updateCar(updateCar, id, user.get());
-                    return ResponseEntity.status(HttpStatus.OK).build();
-                }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        try{
+            Optional <User> user = userService.findUserById(Long.parseLong("1"));
+            return carService.findCarById(id, user.get().getId())
+                    .map(record -> {
+                        carService.updateCar(updateCar, id, user.get());
+                        return ResponseEntity.status(HttpStatus.OK).build();
+                    }).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        } catch (Exception e){
+            String msg = "";
+            if (e.getMessage().contains("LICENCE")){
+                msg = "Licence plate already exists";
+            } else if (e.getMessage().contains("not-null")) {
+                msg = "Missing fields";
+            }
+            JSONObject json = convertJSONObject.convert(HttpStatus.BAD_REQUEST.value(), msg);
+            return ResponseEntity.badRequest().body(json.toString());
+        }
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import dev.wandessonsoares.domain.car.Car;
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,13 +21,21 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String birthDay;
+    @Column(nullable = false, unique = true)
     private String login;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String phone;
+
     @OneToMany(mappedBy="user", targetEntity= Car.class, fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Car> cars;
     private UserRole role;

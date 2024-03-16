@@ -12,3 +12,7 @@ Criar aplicação que exponha uma API RESTful de criação de usuários e carros
 * **EST-06** - Criar testes unitários
 * **EST-07** - Fazer deploy da API no Render
 * **EST-08** - Adicionar Swagger
+
+A API encontra-se disponível em: https://cars-api-latest.onrender.com
+Documentação Swagger: https://cars-api-latest.onrender.com/swagger-ui/index.html
+

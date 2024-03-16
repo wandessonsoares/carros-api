@@ -19,7 +19,7 @@ public class Car {
     @Getter @Setter
     private long id;
     @Column(nullable = false)
-    private String carYear;
+    private int carYear;
     @Column(nullable = false, unique = true)
     private String licensePlate;
     @Column(nullable = false)

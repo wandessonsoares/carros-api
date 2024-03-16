@@ -1,6 +1,7 @@
 package dev.wandessonsoares.domain.user;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import dev.wandessonsoares.domain.car.Car;
@@ -28,7 +29,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
-    private String birthDay;
+    private Date birthDay;
     @Column(nullable = false, unique = true)
     private String login;
     @Column(nullable = false)

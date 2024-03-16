@@ -1,16 +1,9 @@
 package dev.wandessonsoares.dto;
 
-import lombok.Data;
-
+import java.util.Date;
 import java.util.List;
-@Data
-public class UserDTO {
 
-    private static final long serialVersionUID = 1L;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String birthDay;
-    private String phone;
-    private List<CarDTO> cars;
+public record UserDTO(String firstName, String lastName, String email, String birthDay,
+                      String phone, List<CarDTO> cars
+) {
 }

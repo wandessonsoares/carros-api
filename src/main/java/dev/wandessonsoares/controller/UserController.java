@@ -1,7 +1,6 @@
 package dev.wandessonsoares.controller;
 
 import dev.wandessonsoares.domain.user.User;
-import dev.wandessonsoares.domain.user.UserRole;
 import dev.wandessonsoares.dto.UserDTO;
 import dev.wandessonsoares.services.CarService;
 import dev.wandessonsoares.services.UserService;

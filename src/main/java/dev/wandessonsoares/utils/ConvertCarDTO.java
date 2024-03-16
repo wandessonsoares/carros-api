@@ -8,11 +8,12 @@ import org.springframework.context.annotation.Configuration;
 public class ConvertCarDTO {
 
     public CarDTO convert (Car car){
-        CarDTO carDTO = new CarDTO();
-        carDTO.setCarYear(car.getCarYear());
-        carDTO.setLicensePlate(car.getLicensePlate());
-        carDTO.setModel(car.getModel());
-        carDTO.setColor(car.getColor());
+        CarDTO carDTO = new CarDTO(
+                car.getCarYear(),
+                car.getLicensePlate(),
+                car.getModel(),
+                car.getColor()
+        );
 
         return carDTO;
     }

@@ -37,11 +37,18 @@ public class AuthenticationController {
             JSONObject json = convertJSONObject.convert(HttpStatus.BAD_REQUEST.value(), "Invalid Login or Password");
             return ResponseEntity.badRequest().body(json.toString());
         }
-        var usernamePassoword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var auth = authenticationManager.authenticate(usernamePassoword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        try {
+            var usernamePassoword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+            var auth = authenticationManager.authenticate(usernamePassoword);
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+            var token = tokenService.generateToken((User) auth.getPrincipal());
+
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch(Exception e) {
+            String msg = "Invalid login or password";
+            JSONObject json = convertJSONObject.convert(HttpStatus.BAD_REQUEST.value(), msg);
+            return ResponseEntity.badRequest().body(json.toString());
+        }
     }
 }

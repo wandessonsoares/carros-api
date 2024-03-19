@@ -24,6 +24,7 @@ public class ConvertUserDTO {
         String birthDayFormated = new SimpleDateFormat("dd/MM/yyyy").format(user.getBirthDay());
 
         UserDTO userDTO = new UserDTO(
+                user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),

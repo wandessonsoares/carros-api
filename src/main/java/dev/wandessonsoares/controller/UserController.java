@@ -29,11 +29,13 @@ public class UserController {
     ConvertJSONObject convertJSONObject;
 
     @GetMapping("")
+    @CrossOrigin(origins = "http://localhost:4200")
     public List<UserDTO> getUsers(){
         return userService.findAllUsers();
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
         return userService.findUserDTOById(id)
                 .map(record -> {
@@ -42,6 +44,7 @@ public class UserController {
     }
 
     @PostMapping("")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws JdbcSQLIntegrityConstraintViolationException {
         try {
             userService.saveNewUser(user);
@@ -65,6 +68,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
         return userService.findUserById(id)
                 .map(record -> {
@@ -74,6 +78,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody User updateUser) throws JdbcSQLIntegrityConstraintViolationException{
         try{
             return userService.findUserById(id)

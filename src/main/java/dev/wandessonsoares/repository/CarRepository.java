@@ -14,4 +14,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     void deleteById(Long id);
     @Query( "select c from CAR c join USUARIO u ON c.user.id = :id" )
     List<Car> findByUserId(@Param("id") Long id);
+
+    Optional<Car> findByLicensePlate(String licensePlate);
 }

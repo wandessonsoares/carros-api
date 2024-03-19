@@ -1,22 +1,20 @@
 package dev.wandessonsoares.services;
 
 import dev.wandessonsoares.domain.car.Car;
+import dev.wandessonsoares.domain.dto.UserInfoDTO;
 import dev.wandessonsoares.domain.user.User;
 import dev.wandessonsoares.domain.user.UserRole;
-import dev.wandessonsoares.dto.UserDTO;
-import dev.wandessonsoares.repository.CarRepository;
+import dev.wandessonsoares.domain.dto.UserDTO;
 import dev.wandessonsoares.repository.UserRepository;
 import dev.wandessonsoares.utils.ConvertUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.rsocket.RSocketSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -38,21 +36,18 @@ public class UserService {
         return userDTOS;
     }
 
-    public Optional<UserDTO> findUserDTOById(Long id){
+    public Optional<?> findUserDTOById(Long id){
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
             UserDTO userDTO = convertUserDTO.convert(user.get());
             return Optional.ofNullable(userDTO);
         }
-        return null;
+        return user;
     }
 
     public Optional<User> findUserById(Long id){
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            return Optional.of(user.get());
-        }
-        return null;
+        return user;
     }
 
     public UserDetails findUserByLogin(String login){
@@ -60,15 +55,36 @@ public class UserService {
         return user;
     }
 
+    public Optional<UserInfoDTO> findUserByLoginDataDTO(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        Optional<User> userLogged = userRepository.findByLoginData(userDetails.getUsername());
+        UserDTO userDTO = convertUserDTO.convert(userLogged.get());
+
+        UserInfoDTO userInfoDTO =
+                new UserInfoDTO(userDTO, userLogged.get().getCreatedAt(), userLogged.get().getLastLogin());
+
+        return Optional.ofNullable(userInfoDTO);
+    }
+
+    public Optional<User> findUserByLoginData(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        Optional<User> userLogged = userRepository.findByLoginData(userDetails.getUsername());
+
+        return userLogged;
+    }
+
     public User saveNewUser(User user){
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
         user.setRole(UserRole.USER);
+        user.setCreatedAt(Calendar.getInstance().getTime().toString());
 
         return userRepository.save(user);
     }
 
-    public User updateUser(User updateUser, Long id){
+    public Optional<User> updateUser(User updateUser, Long id){
         Optional<User> userSaved = userRepository.findById(id);
         if (userSaved.isPresent()){
             User user = userSaved.get();
@@ -94,7 +110,7 @@ public class UserService {
             user.setCars(updatedCars);
             userRepository.save(user);
         }
-        return null;
+        return userSaved;
     }
 
     public void deleteUserById(Long id){

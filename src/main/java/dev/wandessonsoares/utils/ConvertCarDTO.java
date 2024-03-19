@@ -1,7 +1,7 @@
 package dev.wandessonsoares.utils;
 
 import dev.wandessonsoares.domain.car.Car;
-import dev.wandessonsoares.dto.CarDTO;
+import dev.wandessonsoares.domain.dto.CarDTO;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -14,6 +14,7 @@ public class ConvertCarDTO {
                 car.getModel(),
                 car.getColor()
         );
+
 
         return carDTO;
     }

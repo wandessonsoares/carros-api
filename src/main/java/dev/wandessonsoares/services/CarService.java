@@ -2,7 +2,7 @@ package dev.wandessonsoares.services;
 
 import dev.wandessonsoares.domain.car.Car;
 import dev.wandessonsoares.domain.user.User;
-import dev.wandessonsoares.dto.CarDTO;
+import dev.wandessonsoares.domain.dto.CarDTO;
 import dev.wandessonsoares.repository.CarRepository;
 import dev.wandessonsoares.utils.ConvertCarDTO;
 import org.springframework.beans.factory.annotation.Autowired;

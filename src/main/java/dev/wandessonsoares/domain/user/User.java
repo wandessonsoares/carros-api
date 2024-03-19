@@ -7,7 +7,6 @@ import java.util.List;
 import dev.wandessonsoares.domain.car.Car;
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,6 +39,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="user", targetEntity= Car.class, fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Car> cars;
     private UserRole role;
+    private String createdAt;
+    private String lastLogin;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

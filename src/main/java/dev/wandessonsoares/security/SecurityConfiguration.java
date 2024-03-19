@@ -35,8 +35,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/cars").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/cars/*").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/cars").hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, "/api/cars").hasRole("USER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/cars").hasRole("USER")
+                        .requestMatchers(HttpMethod.PUT, "/api/cars/*").hasRole("USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/cars/*").hasRole("USER")
                         .anyRequest().permitAll())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -38,6 +38,7 @@ Criar aplicação que exponha uma API RESTful de criação de usuários e carros
   * O README.md do projeto deverá ter uma seção ESTÓRIAS DE USUÁRIO com a lista numerada de estórias de usuário que foram concebidas para a implementação do desafio. :white_check_mark:
   * A primeira linha de cada commit do repositório deve utilizar a descrição da estória de usuário associada. :white_check_mark:
   * O README.md do projeto deve ser claro e mostrar tudo que precisa ser feito para executar o build do projeto, deploy, testes, etc. :white_check_mark:
+  * Implementar o endpoint /api/me contendo as informações do usuário logado :x:
 
 Desejáveis
 
@@ -46,7 +47,7 @@ Desejáveis
     
 #### O que faltou?
   * Testes unitários :x:
-  * Implementar o endpoint /api/me contendo as informações do usuário logado :x:
+  * A parte relacionada aos Carros e Login no front :x:
 
 #### O que pode melhorar?
   * O front faltou ser mais completo, ficou pronta apenas a parte referente ao usuário, faltando login a tratativa para os carros 
@@ -66,6 +67,9 @@ Desejáveis
 #### [BACKEND] Via servidor do Render
   * Apenas acesse: [Cars API - Render](https://cars-api-latest.onrender.com/swagger-ui/index.html)
   * OBS: Pode demorar alguns minutos para o servidor iniciar
+
+As requisições também podem ser feitas via Postman. Pra isso, disponbilizei a [collection](https://drive.google.com/file/d/1NzzbmIaTZIA8IYEUBQlodMNClg21k43_/view?usp=sharing) para download.
+Criei duas enviroments (dev e prod) para alternar facilmente entre ambiente local e servidor remoto. As requisições estão pré configuradas e prontas para disparar as requisições.
 
 #### [FRONTEND]
   * Ter o NPM instalado a partir da versão 9.7.2

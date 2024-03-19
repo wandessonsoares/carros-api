@@ -72,6 +72,7 @@ As requisições também podem ser feitas via Postman. Pra isso, disponbilizei a
 Criei duas enviroments (dev e prod) para alternar facilmente entre ambiente local e servidor remoto. As requisições estão pré configuradas e prontas para disparar as requisições.
 
 #### [FRONTEND]
+  * O front econtra-se disponível em um repositório a parte no Github - https://github.com/wandessonsoares/carrosapp
   * Ter o NPM instalado a partir da versão 9.7.2
   * Ter o Node instalado a partir da versão 20.3.1
   * Instalar o Angular CLI
